@@ -1,0 +1,14 @@
+{
+  "contentToReview": "# Sample Content\n\nThis is the content that needs to be evaluated for quality and accuracy.\n\nReplace this with actual content from your data pipeline.",
+  "qualityOptions": [
+    {"value": "excellent", "label": "🌟 Excellent - Outstanding quality"},
+    {"value": "good", "label": "👍 Good - Meets standards"},
+    {"value": "fair", "label": "👌 Fair - Acceptable with minor issues"},
+    {"value": "poor", "label": "👎 Poor - Significant issues"}
+  ],
+  "accuracyOptions": [
+    {"value": "accurate", "label": "✅ Accurate - Factually correct"},
+    {"value": "mostly_accurate", "label": "🟡 Mostly Accurate - Minor inaccuracies"},
+    {"value": "inaccurate", "label": "❌ Inaccurate - Contains errors"}
+  ]
+}

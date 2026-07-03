@@ -1,0 +1,14 @@
+{
+  "step": 0,
+  "prompt": "The video captures a couple standing close together, with the woman wearing a pink dress and the man in a gray suit. They are in a well-lit, elegant room with white walls and decorative elements.,static shot",
+  "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013445.mp4",
+  "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013445.mp4",
+  "overall_preference": "",
+  "image_quality": "",
+  "motion_quality": "",
+  "subject_background_consistency": "",
+  "video_realism": "",
+  "image_text_alignment": "",
+  "motion_text_alignment": "",
+  "comment": ""
+}

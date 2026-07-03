@@ -2,8 +2,6 @@
 .tbx-cache/
 
 # User-generated interfaces (don't commit to repo)
-generated-interfaces/*
-!generated-interfaces/.gitkeep
 user-interfaces/
 *.user.json
 

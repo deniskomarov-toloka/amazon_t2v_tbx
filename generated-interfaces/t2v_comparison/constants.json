@@ -1,0 +1,91 @@
+{
+  "choiceOptions": [
+    {"value": "a", "label": "🅰️ Video A is better"},
+    {"value": "tie", "label": "🟰 Tie / Equal"},
+    {"value": "b", "label": "🅱️ Video B is better"}
+  ],
+  "blocks": ["Video Quality", "Text Alignment", "Overall"],
+  "steps": [
+    {
+      "type": "intro",
+      "block": "Video Quality",
+      "title": "Part 1 of 3 · Video Quality — what to look for",
+      "body": "You'll now compare the two videos on **visual quality** — how they look and move, *not* whether they match the description yet. The next **4 questions** all cover this.\n\n**What to look for:**\n- **Sharpness & detail:** clear, crisp frames with no noise, blur, distortion, or watermarks.\n- **Motion:** smooth movement with no flickering or abrupt jumps; be wary of videos that barely move.\n- **Consistency:** the subject and background stay stable, without morphing or flickering.\n- **Realism:** natural, lifelike content; cartoonish or physically impossible motion is less preferred.\n\n💡 The two videos are often nearly identical — watch carefully for subtle differences."
+    },
+    {
+      "type": "question",
+      "block": "Video Quality",
+      "counter": "1 of 7",
+      "path": "image_quality",
+      "title": "Video Image Quality",
+      "description": "Which video has sharper, cleaner image quality?",
+      "example": "Look for blur, noise, distortion, or watermarks — a watermark counts as bad quality."
+    },
+    {
+      "type": "question",
+      "block": "Video Quality",
+      "counter": "2 of 7",
+      "path": "motion_quality",
+      "title": "Video Motion Quality",
+      "description": "Which video has smoother, more natural motion?",
+      "example": "Avoid videos with flickering, abrupt jumps, or almost no movement."
+    },
+    {
+      "type": "question",
+      "block": "Video Quality",
+      "counter": "3 of 7",
+      "path": "subject_background_consistency",
+      "title": "Subject-Background Consistency",
+      "description": "Which video keeps the subject and background consistent throughout?",
+      "example": "Penalize faces or backgrounds that morph or change unnaturally."
+    },
+    {
+      "type": "question",
+      "block": "Video Quality",
+      "counter": "4 of 7",
+      "path": "video_realism",
+      "title": "Video Realism",
+      "description": "Which video looks more real and natural?",
+      "example": "Cartoonish looks or unnatural motion are less realistic."
+    },
+    {
+      "type": "intro",
+      "block": "Text Alignment",
+      "title": "Part 2 of 3 · Text Alignment — switching focus",
+      "body": "Now switch your focus from *how the videos look* to **how well they follow the video description**. The next **2 questions** compare each video against the text.\n\n**What to look for:**\n- **Image-Text Alignment:** which video shows more of the entities and details named in the description? List the items in the description (e.g. dog, cat, ripples) and count how many each video actually shows.\n- **Motion-Text Alignment:** which video's actions and events unfold in the order and manner the description states?\n\n💡 A video can look better but still match the description worse — judge alignment on the text, not on visual polish."
+    },
+    {
+      "type": "question",
+      "block": "Text Alignment",
+      "counter": "5 of 7",
+      "path": "image_text_alignment",
+      "title": "Video Image-Text Alignment",
+      "description": "Which video matches the video description better? The video showing more of the described entities is preferred.",
+      "example": "Count the entities in the video description (e.g. dog, cat, ripples) — the video showing more of them wins."
+    },
+    {
+      "type": "question",
+      "block": "Text Alignment",
+      "counter": "6 of 7",
+      "path": "motion_text_alignment",
+      "title": "Video Motion-Text Alignment",
+      "description": "Which video's actions follow the sequence described in the video description?",
+      "example": "Check that movements and scene changes happen in the order the video description states."
+    },
+    {
+      "type": "intro",
+      "block": "Overall",
+      "title": "Part 3 of 3 · Overall Preference",
+      "body": "Finally, give your **overall verdict**. Considering everything, which video is the better result for this description?\n\n**How to decide:**\n1. If the videos differ on **Image-Text Alignment**, your overall choice should match that.\n2. If they **tie** on Image-Text Alignment, decide based on **Image Quality**.\n3. If they tie on both, use your best overall judgment.\n\n⭐ This is the **most important** answer for the client — weigh it carefully."
+    },
+    {
+      "type": "question",
+      "block": "Overall",
+      "counter": "7 of 7",
+      "path": "overall_preference",
+      "title": "Overall Preference",
+      "description": "Which video is the better result overall?",
+      "example": "If the videos tie on Image-Text Alignment, prefer the one with better Image Quality."
+    }
+  ]
+}
