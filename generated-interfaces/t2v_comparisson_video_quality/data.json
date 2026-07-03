@@ -1,0 +1,37 @@
+{
+  "stage": 0,
+  "demo_step": 0,
+
+  "t1_step": 0,
+  "t1_image_quality": "",
+  "t1_image_quality_status": "",
+  "t1_motion_quality": "",
+  "t1_motion_quality_status": "",
+  "t1_subject_background_consistency": "",
+  "t1_subject_background_consistency_status": "",
+  "t1_video_realism": "",
+  "t1_video_realism_status": "",
+  "t1_comment": "",
+
+  "t2_step": 0,
+  "t2_image_quality": "",
+  "t2_image_quality_status": "",
+  "t2_motion_quality": "",
+  "t2_motion_quality_status": "",
+  "t2_subject_background_consistency": "",
+  "t2_subject_background_consistency_status": "",
+  "t2_video_realism": "",
+  "t2_video_realism_status": "",
+  "t2_comment": "",
+
+  "t3_step": 0,
+  "t3_image_quality": "",
+  "t3_image_quality_status": "",
+  "t3_motion_quality": "",
+  "t3_motion_quality_status": "",
+  "t3_subject_background_consistency": "",
+  "t3_subject_background_consistency_status": "",
+  "t3_video_realism": "",
+  "t3_video_realism_status": "",
+  "t3_comment": ""
+}

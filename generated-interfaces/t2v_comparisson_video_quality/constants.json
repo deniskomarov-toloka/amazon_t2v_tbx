@@ -1,0 +1,111 @@
+{
+  "stages": [
+    "Intro",
+    "Rules",
+    "Demo",
+    "Task 1",
+    "Task 2",
+    "Task 3",
+    "Results"
+  ],
+  "intro": "You will see a **text prompt** and **two AI-generated videos** made from it.\n\nFor **each quality criterion**, select the video with **higher quality** — 🅰️ A, 🅱️ B or 🟰 Tie:\n\n1. 🖼️ **Image quality**\n2. 🎞️ **Motion quality**\n3. 🧍 **Subject–background consistency**\n4. 🌍 **Realism**\n\nEach criterion is explained on a real example in the next screens.",
+  "rules": "1. 🎓 **Demo pair** — already solved, with correct answers and explanations.\n\n2. ✍️ **3 practice pairs** — you answer every metric yourself.\n\n3. ⚡ Answers are checked **the moment you click**: ✅ correct → green, ❌ wrong → red + a hint and **one more try**.\n\n4. 📝 Each pair ends with a **short comment** (min 30 characters).\n\n5. 🏁 You pass when **all metrics on all 3 pairs** are correct.",
+  "choice_options": [
+    {
+      "value": "a",
+      "label": "🅰️ Video A is better"
+    },
+    {
+      "value": "tie",
+      "label": "🟰 Tie / Equal"
+    },
+    {
+      "value": "b",
+      "label": "🅱️ Video B is better"
+    }
+  ],
+  "metrics": [
+    {
+      "path": "image_quality",
+      "title": "Image Quality",
+      "question": "Which video has sharper, cleaner image quality?",
+      "example": "Look for blur, noise, distortion or watermarks — a watermark counts as bad quality.",
+      "hint": "Re-check sharpness: blur, noise, distortion or a watermark all lower image quality."
+    },
+    {
+      "path": "motion_quality",
+      "title": "Motion Quality",
+      "question": "Which video has smoother, more natural motion?",
+      "example": "Avoid videos with flickering, abrupt jumps, or almost no movement.",
+      "hint": "Watch the movement again: flicker, abrupt jumps or a nearly frozen video score lower."
+    },
+    {
+      "path": "subject_background_consistency",
+      "title": "Subject–Background Consistency",
+      "question": "Which video keeps the subject and background consistent throughout?",
+      "example": "Penalize faces or backgrounds that morph or change unnaturally.",
+      "hint": "Track faces and the background across the whole clip — morphing or warping means lower consistency."
+    },
+    {
+      "path": "video_realism",
+      "title": "Video Realism",
+      "question": "Which video looks more real and natural?",
+      "example": "Cartoonish looks or unnatural motion are less realistic.",
+      "hint": "Judge how lifelike it looks — cartoonish rendering or impossible physics is less realistic."
+    }
+  ],
+  "comment_intro": "Justify your selection in 2–3 sentences (at least 30 characters): what looked better and why.",
+  "demo": {
+    "prompt": "A man is sitting at a desk in front of a laptop.",
+    "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013395.mp4",
+    "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013395.mp4",
+    "gt": {
+      "image_quality": "a",
+      "motion_quality": "a",
+      "subject_background_consistency": "a",
+      "video_realism": "a"
+    },
+    "reasons": {
+      "image_quality": "Video A stays sharp on the man and the laptop; Video B looks softer with more compression noise.",
+      "motion_quality": "Video A moves smoothly; Video B has small jitters in the hands and screen.",
+      "subject_background_consistency": "In Video A the desk and background stay stable; Video B warps slightly over time.",
+      "video_realism": "Video A looks natural and lifelike; Video B has a faint, over-smoothed artificial look."
+    },
+    "comment": "Video A is the clear winner: it stays sharper on the man and the laptop, moves more smoothly, and looks more natural, while Video B is softer and warps a little over time."
+  },
+  "tasks": [
+    {
+      "prompt": "The video shows an astronaut in a spacesuit floating in space near a space station.",
+      "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012436.mp4",
+      "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012436.mp4",
+      "gt": {
+        "image_quality": "a",
+        "motion_quality": "a",
+        "subject_background_consistency": "a",
+        "video_realism": "a"
+      }
+    },
+    {
+      "prompt": "The video shows a group of piglets feeding from their mother in a pen.",
+      "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010087.mp4",
+      "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010087.mp4",
+      "gt": {
+        "image_quality": "b",
+        "motion_quality": "b",
+        "subject_background_consistency": "b",
+        "video_realism": "b"
+      }
+    },
+    {
+      "prompt": "A group of people are gathered around an older man who is lying down. They are all smiling and laughing together.",
+      "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013361.mp4",
+      "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013361.mp4",
+      "gt": {
+        "image_quality": "tie",
+        "motion_quality": "tie",
+        "subject_background_consistency": "tie",
+        "video_realism": "tie"
+      }
+    }
+  ]
+}
