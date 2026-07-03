@@ -1,0 +1,38 @@
+{
+  "contentTypeOptions": [
+    { "value": "article", "label": "Article" },
+    { "value": "blog_post", "label": "Blog Post" },
+    { "value": "documentation", "label": "Technical Documentation" },
+    { "value": "tutorial", "label": "Tutorial/Guide" },
+    { "value": "reference", "label": "Reference Material" },
+    { "value": "whitepaper", "label": "Whitepaper" },
+    { "value": "case_study", "label": "Case Study" },
+    { "value": "other", "label": "Other" }
+  ],
+  "assessmentOptions": [
+    { "value": "excellent", "label": "⭐ Excellent - Exceeds expectations" },
+    { "value": "good", "label": "✅ Good - Meets expectations" },
+    { "value": "satisfactory", "label": "➖ Satisfactory - Adequate quality" },
+    { "value": "needs_improvement", "label": "⚠️ Needs Improvement - Below standards" },
+    { "value": "poor", "label": "❌ Poor - Major issues present" }
+  ],
+  "qualityOptions": [
+    { "value": "excellent", "label": "⭐ Excellent (5/5)" },
+    { "value": "good", "label": "✅ Good (4/5)" },
+    { "value": "fair", "label": "➖ Fair (3/5)" },
+    { "value": "poor", "label": "⚠️ Poor (2/5)" },
+    { "value": "very_poor", "label": "❌ Very Poor (1/5)" }
+  ],
+  "finalDecisionOptions": [
+    { "value": "approve", "label": "✅ Approve - Ready for publication" },
+    { "value": "revise", "label": "🔄 Request Revision - Needs improvements" },
+    { "value": "major_revision", "label": "🔄 Major Revision - Significant changes needed" },
+    { "value": "reject", "label": "❌ Reject - Content unsuitable" }
+  ],
+  "priorityOptions": [
+    { "value": "low", "label": "🟢 Low Priority - Minor improvements" },
+    { "value": "medium", "label": "🟡 Medium Priority - Moderate changes needed" },
+    { "value": "high", "label": "🟠 High Priority - Significant revision required" },
+    { "value": "critical", "label": "🔴 Critical - Major issues must be addressed" }
+  ]
+}

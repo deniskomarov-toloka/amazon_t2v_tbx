@@ -1,0 +1,253 @@
+[
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013445.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013445.mp4",
+        "prompt": "The video captures a couple standing close together, with the woman wearing a pink dress and the man in a gray suit. They are in a well-lit, elegant room with white walls and decorative elements.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013395.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013395.mp4",
+        "prompt": "A man is sitting at a desk in front of a laptop."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013411.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013411.mp4",
+        "prompt": "The video captures a vibrant cityscape at night, featuring illuminated buildings and streets. The scene is bustling with activity, showcasing the dynamic energy of an urban environment.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012639.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012639.mp4",
+        "prompt": "The video shows a woman standing on a stage, wearing a gray sweater. She appears to be speaking or presenting, with the word \"PO\" visible in the background.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013191.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013191.mp4",
+        "prompt": "The video shows a woman sitting on a bench in a busy street, using her phone.,track left"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011025.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011025.mp4",
+        "prompt": "A person is putting on a VR headset in a brightly lit environment with neon lights."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013361.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013361.mp4",
+        "prompt": "A group of people are gathered around an older man who is lying down. They are all smiling and laughing together."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012436.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012436.mp4",
+        "prompt": "The video shows an astronaut in a spacesuit floating in space near a space station.,"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013965.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013965.mp4",
+        "prompt": "The video shows a field of sunflowers during a beautiful sunset. The sunflowers are in full bloom, and the sky is filled with vibrant colors.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013679.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013679.mp4",
+        "prompt": "The video shows a man sitting on a couch while another man stands behind him, placing his hands on the man's shoulders. The man sitting appears to be smiling and looking towards the camera.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012581.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012581.mp4",
+        "prompt": "The video shows a close-up of a plant with long, thin leaves that are slightly curved and have a white or light-colored tip. The plant appears to be swaying gently in the wind. The background is blurred, but it seems to be a natural outdoor setting with greenery."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011349.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011349.mp4",
+        "prompt": "The video shows a person holding several colorful shopping bags, smiling and looking directly at the camera."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011499.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011499.mp4",
+        "prompt": "In the video, a person's hand is seen adjusting a control knob on a car's center console."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012635.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012635.mp4",
+        "prompt": "The video shows a woman standing outdoors, holding a book and smiling. She is dressed in a suit and appears to be in a happy mood.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011865.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011865.mp4",
+        "prompt": "The video captures a serene winter landscape featuring a small village nestled among snow-covered mountains. The village is situated by a body of water, with buildings painted in shades of red and white, and the surrounding mountains are blanketed in snow. The sky is overcast, adding to the tranquil and cold atmosphere of the scene.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012850.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012850.mp4",
+        "prompt": "A man is playing the piano on a stage."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013474.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013474.mp4",
+        "prompt": "Two women are sitting at a table, one of them is using a laptop.,zoom in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012996.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012996.mp4",
+        "prompt": "The video shows an elderly couple sitting closely together, engaged in a conversation. They are both smiling and appear to be enjoying each other's company. The man is wearing a blue shirt, and the woman is dressed in a pink top. The background is light and airy, suggesting a comfortable and relaxed setting.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010412.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010412.mp4",
+        "prompt": "The video shows a beautiful landscape with a river flowing through a lush green forest. The sky is clear, and the overall scene is serene and picturesque.,zoom in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011303.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011303.mp4",
+        "prompt": "The video shows a close-up of a red artificial flower with green leaves floating on a dark surface. The flower is the main focus, and the background is blurred, emphasizing the flower's details.,track right"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012594.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012594.mp4",
+        "prompt": "The video shows a person standing on a snowy mountain peak, wearing a blue jacket and sunglasses. The camera is positioned at a high angle, capturing the person from above. The camera then pans around the person, providing a full view of the snowy landscape surrounding them.,clockwise rotation"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010651.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010651.mp4",
+        "prompt": "The video shows a man and a woman engaged in a conversation. The man is holding a cup of coffee and appears to be smiling as he talks to the woman. The camera remains stationary, capturing the interaction between the two individuals.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012281.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012281.mp4",
+        "prompt": "The video shows a large bridge spanning across a river, with a green landscape and blue sky in the background.,pedestal up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013012.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013012.mp4",
+        "prompt": "An elderly man with a white beard and a young boy are sitting on a couch. The man is holding a laptop and the boy is looking at it.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010087.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010087.mp4",
+        "prompt": "The video shows a group of piglets feeding from their mother in a pen."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011260.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011260.mp4",
+        "prompt": "The video captures a person underwater, wearing a flowing white dress that billows around them, creating a dramatic and ethereal effect.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013578.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013578.mp4",
+        "prompt": "The video captures a dog standing on a sandy beach, looking around, and then sitting down. The background shows a cloudy sky, waves crashing onto the shore, and a few people in the distance."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013528.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013528.mp4",
+        "prompt": "The video shows a bird perched on a branch. The bird has a blue and white plumage with a distinctive blue head and a white belly. It is sitting still, facing slightly to the left, with its beak closed. The background is blurred, focusing attention on the bird."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010542.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010542.mp4",
+        "prompt": "The video shows a beautiful beach with white sand and turquoise water. The beach is surrounded by lush greenery and rocky cliffs. The sky is cloudy, and the waves are crashing onto the shore.,dolly in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012137.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012137.mp4",
+        "prompt": "The video shows a musician playing an electric guitar on a stage with vibrant lighting in the background.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013198.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013198.mp4",
+        "prompt": "The video shows a hand performing a series of gestures against a black background."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011379.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011379.mp4",
+        "prompt": "A woman is seen moving her arms around while looking off into the distance."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012899.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012899.mp4",
+        "prompt": "A woman is walking on a road with a green field and mountains in the background.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012227.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012227.mp4",
+        "prompt": "The video captures a large school of fish swimming in a synchronized manner, with a scuba diver observing from a distance.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013217.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013217.mp4",
+        "prompt": "A woman is applying makeup to her face using a brush."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010601.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010601.mp4",
+        "prompt": "A woman is sitting in a chair with a young girl on her lap. She is talking to another woman who is sitting across from her. The woman with the girl is wearing a gray sweater and the other woman is wearing a black shirt."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013674.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013674.mp4",
+        "prompt": "The hourglass in the video is made of wood and has a blue sand inside. The sand is flowing from the upper part to the lower part of the hourglass.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013878.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013878.mp4",
+        "prompt": "The video shows an elderly couple standing on a forest path, engaged in a conversation. The camera remains stationary, capturing the couple from the waist up as they speak and gesture with their hands. The background features trees and sunlight filtering through the leaves, creating a serene and natural atmosphere.,arc shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010607.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010607.mp4",
+        "prompt": "Two cats are sitting on a windowsill, one of them is reaching out to touch the other."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011754.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011754.mp4",
+        "prompt": "A woman is filming a woman in a kitchen."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012121.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012121.mp4",
+        "prompt": "The video shows a person leaning against a tree, with a book in their hand. The setting appears to be outdoors, possibly in a park or garden."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013485.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013485.mp4",
+        "prompt": "The video captures a serene and picturesque landscape featuring a tranquil blue lake nestled amidst a dense forest. The lake's surface reflects the surrounding trees, creating a mirror-like effect. The forest is lush and green, with trees of varying heights and colors, suggesting a healthy ecosystem. The overall scene is peaceful and inviting, with the calm waters and the dense foliage creating a sense of seclusion and tranquility.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013703.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013703.mp4",
+        "prompt": "A woman is sitting at a table and making origami.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010159.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010159.mp4",
+        "prompt": "The video shows a group of people performing a stretching exercise in a spacious, well-lit room. They are positioned in a line, leaning forward with their arms extended towards the floor.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011929.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011929.mp4",
+        "prompt": "A woman is standing in front of a group of people, speaking and gesturing with her hands."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011750.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011750.mp4",
+        "prompt": "The video captures a majestic cathedral with vibrant colors and intricate designs, set against a backdrop of a clear blue sky with fluffy white clouds. The cathedral's architecture is detailed, featuring multiple domes and ornate facades.,dolly in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010863.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010863.mp4",
+        "prompt": "The video shows a man walking down a street while holding a smartphone.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013380.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013380.mp4",
+        "prompt": "The video shows a woman in a black shirt and gloves holding a white object, possibly a tool or device, while standing next to a man who is lying down on a bed. The woman is smiling and appears to be explaining something to the man. The camera remains stationary throughout the video, focusing on the interaction between the two individuals.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012837.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012837.mp4",
+        "prompt": "A person is pouring a red liquid onto a cake.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013319.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013319.mp4",
+        "prompt": "Two seahorses are seen standing on the sandy ocean floor."
+    }
+
+]

@@ -1,0 +1,33 @@
+{
+  "prompt": "What is the capital of France?",
+  "answers": [
+    {
+      "id": "0",
+      "text": "Paris"
+    },
+    {
+      "id": "1",
+      "text": "Paris is the capital of France"
+    },
+    {
+      "id": "2",
+      "text": "France has capital and it is Paris"
+    },
+    {
+      "id": "3",
+      "text": "The capital of France is Paris"
+    },
+    {
+      "id": "4",
+      "text": "Paris is the capital of France.. and Berlin is the capital of Germany.. and London is the capital of UK"
+    },
+    {
+      "id": "5",
+      "text": "Well, Paris is the capital of France"
+    },
+    {
+      "id": "6",
+      "text": "Easiest question ever, Paris"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+---
+description: TBX Interface Generation - modular folder with code.jsx, data.json, preprocess.js, constants.json
+globs: 
+alwaysApply: true
+---
+
+# TBX Interface Generation
+
+## BEFORE ANYTHING ELSE
+
+```bash
+./post_open.sh -v
+```
+
+## CREATE FOLDER (never single JSON)
+
+Use the `generate_template.sh` script to create the folder structure:
+
+```bash
+./generate_template.sh <pattern_type> <folder_name>
+```
+
+**Pattern Types:**
+- `evaluation` - Quality assessment interface
+- `comparison` - Side-by-side comparison
+- `workflow` - Multi-step process
+- `feedback` - Text/feedback collection
+- `form` - Basic form
+
+**Example:**
+```bash
+./generate_template.sh evaluation my_quality_check
+```
+
+This creates:
+```
+generated-interfaces/<folder_name>/
+├── code.jsx        # UI
+├── data.json       # INPUT from server (test data)
+├── preprocess.js   # KEEP EMPTY: return {};
+└── constants.json  # Static options/labels
+```
+
+## DEFAULTS — copy these exactly
+
+### preprocess.js — ALWAYS START WITH THIS
+```javascript
+return {};
+```
+**DO NOT add word counts, parsing, or computed fields unless explicitly requested.**
+
+### data.json — real INPUT data (snake_case)
+```json
+{
+  "prompt": "User question here",
+  "ai_response": "AI answer to evaluate...",
+  "model_name": "gpt-4"
+}
+```
+
+### constants.json — static config (snake_case)
+```json
+{
+  "instructions": "Evaluate the response",
+  "rating_options": [
+    {"value": "good", "label": "👍 Good"},
+    {"value": "poor", "label": "👎 Poor"}
+  ]
+}
+```
+
+### code.jsx — minimal UI
+```jsx
+<View.Flex vertical={true} gap={'1rem'}>
+  <View.Alert variant='info' title='Task' description={CONST.instructions} />
+  <View.Card flat={true} title='Content'>
+    <View.Markdown content={data.ai_response} />
+  </View.Card>
+  <Field.RadioGroup path='rating' label='Rating' options={CONST.rating_options} validation={[{required: true}]} />
+  <Field.Textarea path='feedback' label='Feedback' validation={[{required: true}]} />
+</View.Flex>
+```
+
+## RULES
+
+1. **snake_case** for all field names
+2. **preprocess.js = `return {};`** unless user explicitly asks for computed fields
+3. **data.json = INPUT** (task content), not empty output fields
+4. **flat={true}** on View.Card
+5. **rem units** for gaps: `gap={'1rem'}`
+6. **validation** on all Field components
+
+## VALIDATE
+
+```bash
+./combine_interface.sh generated-interfaces/<name>
+./validate_interface.sh generated-interfaces/<name>
+```

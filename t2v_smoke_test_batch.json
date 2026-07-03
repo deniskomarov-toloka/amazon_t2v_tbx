@@ -1,0 +1,27 @@
+[
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013445.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013445.mp4",
+        "prompt": "The video captures a couple standing close together, with the woman wearing a pink dress and the man in a gray suit. They are in a well-lit, elegant room with white walls and decorative elements.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013395.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013395.mp4",
+        "prompt": "A man is sitting at a desk in front of a laptop."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013411.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013411.mp4",
+        "prompt": "The video captures a vibrant cityscape at night, featuring illuminated buildings and streets. The scene is bustling with activity, showcasing the dynamic energy of an urban environment.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012639.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012639.mp4",
+        "prompt": "The video shows a woman standing on a stage, wearing a gray sweater. She appears to be speaking or presenting, with the word \"PO\" visible in the background.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013191.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013191.mp4",
+        "prompt": "The video shows a woman sitting on a bench in a busy street, using her phone.,track left"
+    }
+]

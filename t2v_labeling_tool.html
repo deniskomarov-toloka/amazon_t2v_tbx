@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>T2V Comparison — Local Labeling Tool</title>
+<style>
+  :root {
+    --bg: #f4f5f7;
+    --card: #ffffff;
+    --border: #e3e6ea;
+    --text: #1f2329;
+    --muted: #6b7280;
+    --primary: #2563eb;
+    --primary-d: #1d4ed8;
+    --ok: #16a34a;
+    --warn-bg: #fff7ed;
+    --warn-bd: #fdba74;
+    --sel-bg: #eff6ff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 15px; line-height: 1.5;
+  }
+  header.topbar {
+    position: sticky; top: 0; z-index: 10;
+    background: #fff; border-bottom: 1px solid var(--border);
+    padding: 10px 16px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  }
+  .topbar .pair { font-weight: 600; white-space: nowrap; }
+  .topbar .spacer { flex: 1; }
+  .progress-wrap { flex: 1 1 220px; min-width: 160px; }
+  .progress-bar { height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--ok); width: 0%; transition: width .2s; }
+  .progress-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  main { max-width: 980px; margin: 18px auto; padding: 0 16px 80px; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px; margin-bottom: 16px;
+  }
+  .card-title { font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .prompt { white-space: pre-wrap; }
+  .videos-row { display: flex; gap: 16px; }
+  .videos-row .card { flex: 1; margin-bottom: 16px; }
+  video { width: 100%; border-radius: 8px; background: #000; display: block; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  .badge.ok { background: #dcfce7; color: var(--ok); }
+  .warn {
+    background: var(--warn-bg); border: 1px solid var(--warn-bd); color: #9a3412;
+    border-radius: 10px; padding: 14px 16px; font-weight: 500;
+  }
+  .breadcrumb { display: flex; gap: 10px; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .breadcrumb .cur { color: var(--primary); font-weight: 700; }
+  .intro h-, .intro p { margin: 8px 0; }
+  .intro ul, .intro ol { margin: 8px 0; padding-left: 22px; }
+  .intro li { margin: 4px 0; }
+  .q-desc { font-weight: 500; margin-bottom: 10px; }
+  .hint {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 18px; height: 18px; border-radius: 50%; background: #e5e7eb; color: var(--muted);
+    font-size: 12px; cursor: help; margin-left: 6px;
+  }
+  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choice {
+    text-align: left; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+    background: #fff; cursor: pointer; font-size: 15px; transition: all .12s;
+  }
+  .choice:hover { border-color: #c7ccd3; }
+  .choice.sel { border-color: var(--primary); background: var(--sel-bg); font-weight: 600; }
+  .recap { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .recap table { border-collapse: collapse; width: 100%; }
+  .recap td { padding: 3px 6px; border-bottom: 1px solid #f0f1f3; }
+  .recap td:last-child { text-align: right; font-weight: 600; color: var(--text); }
+  textarea {
+    width: 100%; min-height: 110px; padding: 10px 12px; border: 1px solid var(--border);
+    border-radius: 8px; font-family: inherit; font-size: 15px; resize: vertical;
+  }
+  .char-count { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .char-count.bad { color: #b91c1c; }
+  .nav { display: flex; gap: 10px; margin-top: 4px; }
+  button {
+    font-family: inherit; font-size: 14px; padding: 8px 16px; border-radius: 8px;
+    border: 1px solid var(--border); background: #fff; cursor: pointer;
+  }
+  button.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+  button.primary:hover { background: var(--primary-d); }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button.ghost { background: #fff; }
+  .pill { font-size: 12px; padding: 2px 10px; border-radius: 99px; background: #eef2ff; color: var(--primary); }
+  .pill.done { background: #dcfce7; color: var(--ok); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <span class="pair" id="pairLabel">Pair 1 / 50</span>
+  <button id="prevPair" title="Previous pair">◀</button>
+  <button id="nextPair" title="Next pair">▶</button>
+  <span id="pairStatus" class="pill">in progress</span>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progFill"></div></div>
+    <div class="progress-label" id="progLabel">0 / 50 complete</div>
+  </div>
+  <button class="primary" id="downloadBtn">⬇ Download results.json</button>
+  <button class="ghost" id="resetBtn">Reset all</button>
+</header>
+
+<main>
+  <section id="videos"></section>
+  <section id="wizard"></section>
+</main>
+
+<script>
+const BATCH = [
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013445.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013445.mp4",
+        "prompt": "The video captures a couple standing close together, with the woman wearing a pink dress and the man in a gray suit. They are in a well-lit, elegant room with white walls and decorative elements.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013395.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013395.mp4",
+        "prompt": "A man is sitting at a desk in front of a laptop."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013411.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013411.mp4",
+        "prompt": "The video captures a vibrant cityscape at night, featuring illuminated buildings and streets. The scene is bustling with activity, showcasing the dynamic energy of an urban environment.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012639.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012639.mp4",
+        "prompt": "The video shows a woman standing on a stage, wearing a gray sweater. She appears to be speaking or presenting, with the word \"PO\" visible in the background.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013191.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013191.mp4",
+        "prompt": "The video shows a woman sitting on a bench in a busy street, using her phone.,track left"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011025.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011025.mp4",
+        "prompt": "A person is putting on a VR headset in a brightly lit environment with neon lights."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013361.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013361.mp4",
+        "prompt": "A group of people are gathered around an older man who is lying down. They are all smiling and laughing together."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012436.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012436.mp4",
+        "prompt": "The video shows an astronaut in a spacesuit floating in space near a space station.,"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013965.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013965.mp4",
+        "prompt": "The video shows a field of sunflowers during a beautiful sunset. The sunflowers are in full bloom, and the sky is filled with vibrant colors.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013679.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013679.mp4",
+        "prompt": "The video shows a man sitting on a couch while another man stands behind him, placing his hands on the man's shoulders. The man sitting appears to be smiling and looking towards the camera.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012581.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012581.mp4",
+        "prompt": "The video shows a close-up of a plant with long, thin leaves that are slightly curved and have a white or light-colored tip. The plant appears to be swaying gently in the wind. The background is blurred, but it seems to be a natural outdoor setting with greenery."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011349.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011349.mp4",
+        "prompt": "The video shows a person holding several colorful shopping bags, smiling and looking directly at the camera."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011499.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011499.mp4",
+        "prompt": "In the video, a person's hand is seen adjusting a control knob on a car's center console."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012635.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012635.mp4",
+        "prompt": "The video shows a woman standing outdoors, holding a book and smiling. She is dressed in a suit and appears to be in a happy mood.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011865.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011865.mp4",
+        "prompt": "The video captures a serene winter landscape featuring a small village nestled among snow-covered mountains. The village is situated by a body of water, with buildings painted in shades of red and white, and the surrounding mountains are blanketed in snow. The sky is overcast, adding to the tranquil and cold atmosphere of the scene.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012850.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012850.mp4",
+        "prompt": "A man is playing the piano on a stage."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013474.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013474.mp4",
+        "prompt": "Two women are sitting at a table, one of them is using a laptop.,zoom in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012996.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012996.mp4",
+        "prompt": "The video shows an elderly couple sitting closely together, engaged in a conversation. They are both smiling and appear to be enjoying each other's company. The man is wearing a blue shirt, and the woman is dressed in a pink top. The background is light and airy, suggesting a comfortable and relaxed setting.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010412.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010412.mp4",
+        "prompt": "The video shows a beautiful landscape with a river flowing through a lush green forest. The sky is clear, and the overall scene is serene and picturesque.,zoom in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011303.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011303.mp4",
+        "prompt": "The video shows a close-up of a red artificial flower with green leaves floating on a dark surface. The flower is the main focus, and the background is blurred, emphasizing the flower's details.,track right"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012594.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012594.mp4",
+        "prompt": "The video shows a person standing on a snowy mountain peak, wearing a blue jacket and sunglasses. The camera is positioned at a high angle, capturing the person from above. The camera then pans around the person, providing a full view of the snowy landscape surrounding them.,clockwise rotation"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010651.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010651.mp4",
+        "prompt": "The video shows a man and a woman engaged in a conversation. The man is holding a cup of coffee and appears to be smiling as he talks to the woman. The camera remains stationary, capturing the interaction between the two individuals.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012281.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012281.mp4",
+        "prompt": "The video shows a large bridge spanning across a river, with a green landscape and blue sky in the background.,pedestal up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013012.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013012.mp4",
+        "prompt": "An elderly man with a white beard and a young boy are sitting on a couch. The man is holding a laptop and the boy is looking at it.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010087.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010087.mp4",
+        "prompt": "The video shows a group of piglets feeding from their mother in a pen."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011260.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011260.mp4",
+        "prompt": "The video captures a person underwater, wearing a flowing white dress that billows around them, creating a dramatic and ethereal effect.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013578.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013578.mp4",
+        "prompt": "The video captures a dog standing on a sandy beach, looking around, and then sitting down. The background shows a cloudy sky, waves crashing onto the shore, and a few people in the distance."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013528.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013528.mp4",
+        "prompt": "The video shows a bird perched on a branch. The bird has a blue and white plumage with a distinctive blue head and a white belly. It is sitting still, facing slightly to the left, with its beak closed. The background is blurred, focusing attention on the bird."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010542.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010542.mp4",
+        "prompt": "The video shows a beautiful beach with white sand and turquoise water. The beach is surrounded by lush greenery and rocky cliffs. The sky is cloudy, and the waves are crashing onto the shore.,dolly in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012137.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012137.mp4",
+        "prompt": "The video shows a musician playing an electric guitar on a stage with vibrant lighting in the background.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013198.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013198.mp4",
+        "prompt": "The video shows a hand performing a series of gestures against a black background."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011379.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011379.mp4",
+        "prompt": "A woman is seen moving her arms around while looking off into the distance."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012899.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012899.mp4",
+        "prompt": "A woman is walking on a road with a green field and mountains in the background.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012227.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012227.mp4",
+        "prompt": "The video captures a large school of fish swimming in a synchronized manner, with a scuba diver observing from a distance.,tilt up"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013217.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013217.mp4",
+        "prompt": "A woman is applying makeup to her face using a brush."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010601.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010601.mp4",
+        "prompt": "A woman is sitting in a chair with a young girl on her lap. She is talking to another woman who is sitting across from her. The woman with the girl is wearing a gray sweater and the other woman is wearing a black shirt."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013674.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013674.mp4",
+        "prompt": "The hourglass in the video is made of wood and has a blue sand inside. The sand is flowing from the upper part to the lower part of the hourglass.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013878.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013878.mp4",
+        "prompt": "The video shows an elderly couple standing on a forest path, engaged in a conversation. The camera remains stationary, capturing the couple from the waist up as they speak and gesture with their hands. The background features trees and sunlight filtering through the leaves, creating a serene and natural atmosphere.,arc shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010607.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010607.mp4",
+        "prompt": "Two cats are sitting on a windowsill, one of them is reaching out to touch the other."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011754.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011754.mp4",
+        "prompt": "A woman is filming a woman in a kitchen."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012121.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012121.mp4",
+        "prompt": "The video shows a person leaning against a tree, with a book in their hand. The setting appears to be outdoors, possibly in a park or garden."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013485.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013485.mp4",
+        "prompt": "The video captures a serene and picturesque landscape featuring a tranquil blue lake nestled amidst a dense forest. The lake's surface reflects the surrounding trees, creating a mirror-like effect. The forest is lush and green, with trees of varying heights and colors, suggesting a healthy ecosystem. The overall scene is peaceful and inviting, with the calm waters and the dense foliage creating a sense of seclusion and tranquility.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013703.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013703.mp4",
+        "prompt": "A woman is sitting at a table and making origami.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010159.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010159.mp4",
+        "prompt": "The video shows a group of people performing a stretching exercise in a spacious, well-lit room. They are positioned in a line, leaning forward with their arms extended towards the floor.,dolly out"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011929.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011929.mp4",
+        "prompt": "A woman is standing in front of a group of people, speaking and gesturing with her hands."
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_011750.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_011750.mp4",
+        "prompt": "The video captures a majestic cathedral with vibrant colors and intricate designs, set against a backdrop of a clear blue sky with fluffy white clouds. The cathedral's architecture is detailed, featuring multiple domes and ornate facades.,dolly in"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_010863.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_010863.mp4",
+        "prompt": "The video shows a man walking down a street while holding a smartphone.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013380.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013380.mp4",
+        "prompt": "The video shows a woman in a black shirt and gloves holding a white object, possibly a tool or device, while standing next to a man who is lying down on a bed. The woman is smiling and appears to be explaining something to the man. The camera remains stationary throughout the video, focusing on the interaction between the two individuals.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_012837.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_012837.mp4",
+        "prompt": "A person is pouring a red liquid onto a cake.,static shot"
+    },
+    {
+        "video_a": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-a-swawy-batch/batch_20250422_dpo_100_4k_gen_wl_winner_013319.mp4",
+        "video_b": "https://prodtlkcsafiles.azureedge.net/agi-t2v-video-b-batch/batch_20250422_dpo_100_4k_gen_wl_loser_013319.mp4",
+        "prompt": "Two seahorses are seen standing on the sandy ocean floor."
+    }
+
+];
+const STORAGE_KEY = 't2v_labeling_v1';
+
+const CHOICES = [
+  { value: 'a',   label: '🅰️ Video A is better' },
+  { value: 'tie', label: '🟰 Tie / Equal' },
+  { value: 'b',   label: '🅱️ Video B is better' }
+];
+const SHORT = { a: 'Video A', tie: 'Tie', b: 'Video B' };
+const BLOCKS = ['Video Quality', 'Text Alignment', 'Overall'];
+const MIN_COMMENT = 30;
+
+const STEPS = [
+  {
+    type: 'intro', block: 'Video Quality',
+    title: 'Part 1 of 3 · Video Quality — what to look for',
+    html: `
+      <p>You'll now compare the two videos on <strong>visual quality</strong> — how they look and move, <em>not</em> whether they match the description yet. The next <strong>4 questions</strong> all cover this.</p>
+      <p><strong>What to look for:</strong></p>
+      <ul>
+        <li><strong>Sharpness &amp; detail:</strong> clear, crisp frames with no noise, blur, distortion, or watermarks.</li>
+        <li><strong>Motion:</strong> smooth movement with no flickering or abrupt jumps; be wary of videos that barely move.</li>
+        <li><strong>Consistency:</strong> the subject and background stay stable, without morphing or flickering.</li>
+        <li><strong>Realism:</strong> natural, lifelike content; cartoonish or physically impossible motion is less preferred.</li>
+      </ul>
+      <p>💡 The two videos are often nearly identical — watch carefully for subtle differences.</p>`
+  },
+  { type: 'question', block: 'Video Quality', counter: '1 of 7', path: 'image_quality',
+    title: 'Video Image Quality',
+    description: 'Which video has sharper, cleaner image quality?',
+    example: 'Look for blur, noise, distortion, or watermarks — a watermark counts as bad quality.' },
+  { type: 'question', block: 'Video Quality', counter: '2 of 7', path: 'motion_quality',
+    title: 'Video Motion Quality',
+    description: 'Which video has smoother, more natural motion?',
+    example: 'Avoid videos with flickering, abrupt jumps, or almost no movement.' },
+  { type: 'question', block: 'Video Quality', counter: '3 of 7', path: 'subject_background_consistency',
+    title: 'Subject-Background Consistency',
+    description: 'Which video keeps the subject and background consistent throughout?',
+    example: 'Penalize faces or backgrounds that morph or change unnaturally.' },
+  { type: 'question', block: 'Video Quality', counter: '4 of 7', path: 'video_realism',
+    title: 'Video Realism',
+    description: 'Which video looks more real and natural?',
+    example: 'Cartoonish looks or unnatural motion are less realistic.' },
+  {
+    type: 'intro', block: 'Text Alignment',
+    title: 'Part 2 of 3 · Text Alignment — switching focus',
+    html: `
+      <p>Now switch your focus from <em>how the videos look</em> to <strong>how well they follow the video description</strong>. The next <strong>2 questions</strong> compare each video against the text.</p>
+      <p><strong>What to look for:</strong></p>
+      <ul>
+        <li><strong>Image-Text Alignment:</strong> which video shows more of the entities and details named in the description? List the items (e.g. dog, cat, ripples) and count how many each video actually shows.</li>
+        <li><strong>Motion-Text Alignment:</strong> which video's actions and events unfold in the order and manner the description states?</li>
+      </ul>
+      <p>💡 A video can look better but still match the description worse — judge alignment on the text, not on visual polish.</p>`
+  },
+  { type: 'question', block: 'Text Alignment', counter: '5 of 7', path: 'image_text_alignment',
+    title: 'Video Image-Text Alignment',
+    description: 'Which video matches the video description better? The video showing more of the described entities is preferred.',
+    example: 'Count the entities in the video description (e.g. dog, cat, ripples) — the video showing more of them wins.' },
+  { type: 'question', block: 'Text Alignment', counter: '6 of 7', path: 'motion_text_alignment',
+    title: 'Video Motion-Text Alignment',
+    description: "Which video's actions follow the sequence described in the video description?",
+    example: 'Check that movements and scene changes happen in the order the video description states.' },
+  {
+    type: 'intro', block: 'Overall',
+    title: 'Part 3 of 3 · Overall Preference',
+    html: `
+      <p>Finally, give your <strong>overall verdict</strong>. Considering everything, which video is the better result for this description?</p>
+      <p><strong>How to decide:</strong></p>
+      <ol>
+        <li>If the videos differ on <strong>Image-Text Alignment</strong>, your overall choice should match that.</li>
+        <li>If they <strong>tie</strong> on Image-Text Alignment, decide based on <strong>Image Quality</strong>.</li>
+        <li>If they tie on both, use your best overall judgment.</li>
+      </ol>
+      <p>⭐ This is the <strong>most important</strong> answer for the client — weigh it carefully.</p>`
+  },
+  { type: 'question', block: 'Overall', counter: '7 of 7', path: 'overall_preference',
+    title: 'Overall Preference',
+    description: 'Which video is the better result overall?',
+    example: 'If the videos tie on Image-Text Alignment, prefer the one with better Image Quality.' }
+];
+const QUESTIONS = STEPS.filter(s => s.type === 'question');
+const QPATHS = QUESTIONS.map(s => s.path);
+const COMMENT_STEP = STEPS.length; // wizard index of the comment screen
+
+/* ---------- state + persistence ---------- */
+function freshState() {
+  return BATCH.map(() => ({ answers: {}, comment: '', watchedA: false, watchedB: false, si: 0 }));
+}
+function loadAll() {
+  try {
+    const o = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (o && Array.isArray(o.state) && o.state.length === BATCH.length) return o;
+  } catch (e) {}
+  return null;
+}
+const saved = loadAll();
+let state = saved ? saved.state : freshState();
+let di = saved ? (saved.di || 0) : 0;
+
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify({ state, di })); }
+function isComplete(i) {
+  const s = state[i];
+  return QPATHS.every(p => s.answers[p]) && (s.comment || '').length >= MIN_COMMENT;
+}
+function completedCount() { return state.reduce((n, _, i) => n + (isComplete(i) ? 1 : 0), 0); }
+function escapeHtml(t) {
+  return String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* ---------- DOM refs ---------- */
+const videosEl = document.getElementById('videos');
+const wizardEl = document.getElementById('wizard');
+
+/* ---------- top bar ---------- */
+function updateTopbar() {
+  document.getElementById('pairLabel').textContent = `Pair ${di + 1} / ${BATCH.length}`;
+  document.getElementById('prevPair').disabled = di === 0;
+  document.getElementById('nextPair').disabled = di === BATCH.length - 1;
+  const done = isComplete(di);
+  const statusEl = document.getElementById('pairStatus');
+  statusEl.textContent = done ? '✓ complete' : 'in progress';
+  statusEl.className = 'pill' + (done ? ' done' : '');
+  const total = completedCount();
+  document.getElementById('progFill').style.width = (100 * total / BATCH.length) + '%';
+  document.getElementById('progLabel').textContent = `${total} / ${BATCH.length} complete`;
+}
+
+/* ---------- videos (built once per datapoint) ---------- */
+function buildVideos() {
+  const b = BATCH[di], s = state[di];
+  videosEl.innerHTML = `
+    <div class="card">
+      <div class="card-title">Video description</div>
+      <div class="prompt">${escapeHtml(b.prompt)}</div>
+    </div>
+    <div class="videos-row">
+      <div class="card">
+        <div class="card-title">🅰️ Video A <span class="badge ok" id="badgeA" style="display:${s.watchedA ? 'inline-block' : 'none'}">✓ watched</span></div>
+        <video id="vidA" src="${encodeURI(b.video_a)}" controls preload="metadata"></video>
+      </div>
+      <div class="card">
+        <div class="card-title">🅱️ Video B <span class="badge ok" id="badgeB" style="display:${s.watchedB ? 'inline-block' : 'none'}">✓ watched</span></div>
+        <video id="vidB" src="${encodeURI(b.video_b)}" controls preload="metadata"></video>
+      </div>
+    </div>`;
+  document.getElementById('vidA').addEventListener('ended', () => markWatched('A'));
+  document.getElementById('vidB').addEventListener('ended', () => markWatched('B'));
+}
+function markWatched(which) {
+  const s = state[di];
+  if (which === 'A') s.watchedA = true; else s.watchedB = true;
+  save();
+  const badge = document.getElementById('badge' + which);
+  if (badge) badge.style.display = 'inline-block';
+  buildWizard();
+  updateTopbar();
+}
+
+/* ---------- wizard (re-built on step / answer change) ---------- */
+function buildWizard() {
+  const s = state[di];
+  if (!(s.watchedA && s.watchedB)) {
+    wizardEl.innerHTML = `<div class="warn">▶ Watch both videos to the end to unlock the questions. You only need to do this once — replays afterward are fine.</div>`;
+    return;
+  }
+  const si = s.si || 0;
+  const curBlock = si < STEPS.length ? STEPS[si].block : 'Overall';
+  let html = `<div class="breadcrumb">${BLOCKS.map((b, i) =>
+    `<span class="${b === curBlock ? 'cur' : ''}">${i > 0 ? '→ ' : ''}${b}</span>`).join('')}</div>`;
+
+  if (si < STEPS.length) {
+    const step = STEPS[si];
+    if (step.type === 'intro') {
+      html += `<div class="card"><div class="card-title">${step.title}</div><div class="intro">${step.html}</div></div>`;
+    } else {
+      const val = s.answers[step.path] || '';
+      html += `<div class="card">
+        <div class="card-title">${step.title} <span style="color:var(--muted);font-weight:400">(${step.counter})</span></div>
+        <div class="q-desc">${escapeHtml(step.description)}<span class="hint" title="Example: ${escapeHtml(step.example)}">?</span></div>
+        <div class="choices">
+          ${CHOICES.map(c => `<button class="choice ${val === c.value ? 'sel' : ''}" data-val="${c.value}">${c.label}</button>`).join('')}
+        </div>
+      </div>`;
+    }
+  } else {
+    // comment step
+    html += `<div class="card">
+      <div class="card-title">Justification</div>
+      <div class="q-desc">Why did you make these choices? Describe the reasoning that justifies your selection.</div>
+      <textarea id="commentBox" placeholder="e.g. Video A follows the description more closely and has sharper detail, while Video B shows flickering in the background.">${escapeHtml(s.comment || '')}</textarea>
+      <div class="char-count ${(s.comment || '').length < MIN_COMMENT ? 'bad' : ''}" id="charCount"></div>
+      <div class="recap"><table>${QUESTIONS.map(q =>
+        `<tr><td>${q.title}</td><td>${s.answers[q.path] ? SHORT[s.answers[q.path]] : '—'}</td></tr>`).join('')}</table></div>
+    </div>`;
+  }
+
+  // navigation
+  const nextDisabled = si < STEPS.length && STEPS[si].type === 'question' && !s.answers[STEPS[si].path];
+  html += `<div class="nav">
+    <button id="backBtn" ${si === 0 ? 'disabled' : ''}>← Back</button>
+    ${si < STEPS.length
+      ? `<button class="primary" id="nextBtn" ${nextDisabled ? 'disabled' : ''}>Next →</button>`
+      : `<button class="primary" id="nextPairBtn" ${(!isComplete(di) || di === BATCH.length - 1) ? 'disabled' : ''}>Save &amp; next pair →</button>`}
+  </div>`;
+
+  wizardEl.innerHTML = html;
+
+  // wire up
+  wizardEl.querySelectorAll('.choice').forEach(btn =>
+    btn.addEventListener('click', () => chooseAnswer(STEPS[si].path, btn.dataset.val)));
+  const backBtn = document.getElementById('backBtn');
+  if (backBtn) backBtn.addEventListener('click', () => setStep(si - 1));
+  const nextBtn = document.getElementById('nextBtn');
+  if (nextBtn) nextBtn.addEventListener('click', () => setStep(si + 1));
+  const nextPairBtn = document.getElementById('nextPairBtn');
+  if (nextPairBtn) nextPairBtn.addEventListener('click', () => goToDatapoint(di + 1));
+
+  const box = document.getElementById('commentBox');
+  if (box) {
+    const updateCount = () => {
+      const len = box.value.length;
+      const cc = document.getElementById('charCount');
+      cc.textContent = `${len} / ${MIN_COMMENT} characters minimum`;
+      cc.className = 'char-count' + (len < MIN_COMMENT ? ' bad' : '');
+      const npb = document.getElementById('nextPairBtn');
+      if (npb) npb.disabled = !isComplete(di) || di === BATCH.length - 1;
+    };
+    box.addEventListener('input', () => {
+      state[di].comment = box.value;
+      save();
+      updateCount();
+      updateTopbar();
+    });
+    updateCount();
+  }
+}
+function chooseAnswer(path, val) {
+  state[di].answers[path] = val;
+  save();
+  buildWizard();
+  updateTopbar();
+}
+function setStep(si) {
+  state[di].si = Math.max(0, Math.min(COMMENT_STEP, si));
+  save();
+  buildWizard();
+}
+function goToDatapoint(i) {
+  di = Math.max(0, Math.min(BATCH.length - 1, i));
+  save();
+  buildVideos();
+  buildWizard();
+  updateTopbar();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ---------- export / reset ---------- */
+function download() {
+  const out = BATCH.map((b, i) => {
+    const s = state[i];
+    return {
+      index: i,
+      prompt: b.prompt,
+      video_a: b.video_a,
+      video_b: b.video_b,
+      image_quality: s.answers.image_quality || null,
+      motion_quality: s.answers.motion_quality || null,
+      subject_background_consistency: s.answers.subject_background_consistency || null,
+      video_realism: s.answers.video_realism || null,
+      image_text_alignment: s.answers.image_text_alignment || null,
+      motion_text_alignment: s.answers.motion_text_alignment || null,
+      overall_preference: s.answers.overall_preference || null,
+      comment: s.comment || '',
+      completed: isComplete(i)
+    };
+  });
+  const blob = new Blob([JSON.stringify(out, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 't2v_results.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+function resetAll() {
+  if (!confirm('Clear ALL saved answers for all 50 pairs? This cannot be undone.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  state = freshState(); di = 0;
+  buildVideos(); buildWizard(); updateTopbar();
+}
+
+document.getElementById('prevPair').addEventListener('click', () => goToDatapoint(di - 1));
+document.getElementById('nextPair').addEventListener('click', () => goToDatapoint(di + 1));
+document.getElementById('downloadBtn').addEventListener('click', download);
+document.getElementById('resetBtn').addEventListener('click', resetAll);
+
+/* ---------- init ---------- */
+buildVideos();
+buildWizard();
+updateTopbar();
+</script>
+</body>
+</html>
